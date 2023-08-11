@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Sponser Log</title>
+</head>
+<body>
+  <h1>Sponser A Student!</h1>
+  <form>
+    <label for="studentName">Enter Student Name:</label>
+    <input type="text" id="studentName" required>
+    <br>
+
+    <label for="sponsorEmail">Enter Sponsor Email:</label>
+    <input type="email" id="sponsorEmail" required>
+    <br>
+
+    <label for="sponsorName">Enter Sponsor Name:</label>
+    <input type="text" id="sponsorName" required>
+    
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+<br>
+  <div id="result"></div>
+
+  <h2>Logged Entries</h2>
+  <ul id="entryLog"></ul>
+
+  <script>
+    const entryLog = [];
+
+    function submitForm() {
+      const studentName = document.getElementById("studentName").value;
+      const sponsorEmail = document.getElementById("sponsorEmail").value;
+      const sponsorName = document.getElementById("sponsorName").value;
+
+      if (studentName.trim() !== "" && sponsorEmail.trim() !== "" && sponsorName.trim() !== "") {
+        const entry = {
+          studentName: studentName,
+          sponsorEmail: sponsorEmail,
+          sponsorName: sponsorName
+        };
+
+        entryLog.push(entry);
+        displayEntryLog();
+        
+        document.getElementById("result").textContent = `Student ${studentName} is sponsored by ${sponsorName}, contact email: ${sponsorEmail}.`;
+      } else {
+        document.getElementById("result").textContent = "Please enter valid information for all fields.";
+      }
+    }
+
+    function displayEntryLog() {
+      const entryLogElement = document.getElementById("entryLog");
+      entryLogElement.innerHTML = "";
+
+      entryLog.forEach(entry => {
+        const entryItem = document.createElement("li");
+        entryItem.textContent = `Student Name: ${entry.studentName}, Sponsor: ${entry.sponsorName}, Sponsor Email: ${entry.sponsorEmail}`;
+        entryLogElement.appendChild(entryItem);
+      });
+    }
+  </script>
+</body>
+</html>
